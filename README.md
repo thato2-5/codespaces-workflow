@@ -74,4 +74,3 @@ Push to the branch (git push origin feature-branch).
 Open a pull request.
 Please make sure your code adheres to our coding standards and includes tests where applicable.
 
-This project is licensed under the MIT License - see the LICENSE file for details.
