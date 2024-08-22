@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First-Year Engineering Survey</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'styles.css') }}">
+</head>
+<body>
+    <h1>First-Year Engineering Survey</h1>
+    <form method="POST">
+        {% for question in questions %}
+        <label>{{ question }}</label><br>
+        <input type="text" name="response"><br><br>
+        {% endfor %}
+        <input type="submit" value="Submit">
+    </form>    
+</body>
+</html>
