@@ -37,4 +37,4 @@ def download(upload_id):
 if __name__ == "__main__":
 	with app.app_context():
 		db.create_all()
-	app.run(debug = True, host = '0.0.0.0')
+	app.run(debug = True, host = '0.0.0.0')		# Use available ip address
