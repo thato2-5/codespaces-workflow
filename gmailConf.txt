@@ -1,0 +1,7 @@
+Steps:
+
+    Go to your Google Account Security page.
+    Under "Signing in to Google," enable 2-Step Verification if it's not already enabled.
+    After enabling 2-Step Verification, go back to the Security page and look for "App passwords."
+    Generate an App Password for "Mail" on your device, and Google will provide you with a 16-character password.
+    Use this password in your Flask configuration.
