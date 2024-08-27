@@ -1,6 +1,6 @@
 # Required modules
 from flask import Flask, render_template, request, redirect, url_for
-from werkzeug import secure_filename
+from werkzeug.utils import secure_filename
 
 # Create app instance
 app = Flask(__name__)
@@ -34,4 +34,4 @@ def thank_you():
 
 # Run the app instance
 if __name__ == "__main__":
-    app.run()
+    app.run(debug = True, host = '0.0.0.0')
