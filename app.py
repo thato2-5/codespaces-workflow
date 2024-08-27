@@ -3,6 +3,7 @@ from flask_mail import Mail, Message
 from flask_bootstrap import Bootstrap
 from itsdangerous import URLSafeTimedSerializer
 import re
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -14,6 +15,9 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 app.config['MAIL_DEFAULT_SENDER'] = ('Thato Monyamane', 'thatomonyamane3@gmail.com')
+
+if not app.config['MAIL_USERNAME'] or not app.config['MAIL_PASSWORD']:
+    raise ValueError("MAIL_USERNAME and MAIL_PASSWORD must be set in the environment.")
 
 mail = Mail(app)
 bootstrap = Bootstrap(app)
@@ -39,7 +43,6 @@ def index():
     if request.method == 'POST':
         email = request.form.get('email')
         if email and is_valid_email(email):
-            # Continue with sending the email
             token = generate_confirmation_token(email)
             confirm_url = url_for('confirm_email', token=token, _external=True)
             msg = Message('Confirm Your Email', recipients=[email])
@@ -48,7 +51,7 @@ def index():
                 mail.send(msg)
                 flash('A confirmation email has been sent. Please check your inbox.', 'success')
             except Exception as e:
-                flash(f'Failed to send email: {e}', 'danger')
+                flash(f'Failed to send email: {str(e)}', 'danger')
         else:
             flash('Please enter a valid email address.', 'warning')
         return redirect(url_for('index'))
@@ -56,15 +59,17 @@ def index():
 
 @app.route('/confirm/<token>')
 def confirm_email(token):
-    try:
-        email = confirm_token(token)
-    except Exception as e:
+    email = confirm_token(token)
+    if not email:
         flash('The confirmation link is invalid or has expired.', 'danger')
         return redirect(url_for('index'))
-
     # Here, you'd typically update the user's record in the database to confirm the email
     flash(f'Thank you for confirming your email address: {email}', 'success')
-    return redirect(url_for('index'))
+    return redirect(url_for('thank_you'))
+
+@app.route('/thank_you')
+def thank_you():
+    return render_template('thank_you.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
