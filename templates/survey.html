@@ -4,16 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>First-Year Engineering Survey</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'styles.css') }}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 50px;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
-    <h1>First-Year Engineering Survey</h1>
-    <form method="POST">
-        {% for question in questions %}
-        <label>{{ question }}</label><br>
-        <input type="text" name="response"><br><br>
-        {% endfor %}
-        <input type="submit" value="Submit">
-    </form>    
+    <div class="container">
+        <h2 class="text-center">First-Year Engineering Survey</h2>
+        <form method="POST">
+            {% for question in questions %}
+            <div class="form-group">
+                <label>{{ question }}</label>
+                <input type="text" class="form-control" name="response" required>
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>    
+    </div>
 </body>
 </html>
