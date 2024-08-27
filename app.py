@@ -1,40 +1,34 @@
-# Required modules
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 
-# Create app instance
 app = Flask(__name__)
 
-# Place app configs here
-# Path for upload folder
-#app.config['UPLOAD_FOLDER'] =
-# Maximum file upload size 
-#app.config['MAX_CONTENT_PATH'] = 
+# Path for upload folder (if needed in future)
+# app.config['UPLOAD_FOLDER'] = 'uploads/'
 
-#Dummy questions
+# Dummy questions
 questions = [
     "What is your favourite subject?",
     "How do you commute to school?",
     "What programming language are you most comfortable with?",
     "Please enter your age?",
     "Please enter the name of your engineering course?"
-    
 ]
 
 # Define app routes
-@app.route('/', methods = ['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def survey():
-    # Form submitted
     if request.method == 'POST':
         responses = request.form.getlist('response')
-        # Add code to store responses here
+        # Store responses (e.g., append to a file or save to a database)
+        with open('responses.txt', 'a') as f:
+            f.write(','.join(responses) + '\n')
         return redirect(url_for('thank_you'))
-    return render_template('survey.html', questions = questions)
+    return render_template('survey.html', questions=questions)
 
 @app.route('/thank-you')
 def thank_you():
-    return "Thank you for participating in the survey!"
+    return render_template('thank_you.html')
 
-# Run the app instance
 if __name__ == "__main__":
-    app.run(debug = True, host = '0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')
