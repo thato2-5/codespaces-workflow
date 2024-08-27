@@ -15,7 +15,9 @@ app = Flask(__name__)
 questions = [
     "What is your favourite subject?",
     "How do you commute to school?",
-    "What programming language are you most comfortable with?"
+    "What programming language are you most comfortable with?",
+    "Please enter your age?",
+    "Please enter the name of your engineering course?"
 ]
 
 # Define app routes
