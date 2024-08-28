@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <link rel="icon" href="favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #007bff;
+            color: #fff;
+        }
+        .countdown {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h1>We're Coming Soon!</h1>
+        <p class="lead">Our website is currently under maintenance, but we will be back in:</p>
+        <div class="countdown" id="countdown-timer">00:00:00</div>
+    </div>
+
+    <script>
+        function startCountdown(duration, display) {
+            let timer = duration, hours, minutes, seconds;
+            setInterval(function () {
+                hours = parseInt(timer / 3600, 10);
+                minutes = parseInt((timer % 3600) / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = hours + ":" + minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = 0;
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            const countdownTime = 3600 * 2; // 2 hours in seconds
+            const display = document.querySelector('#countdown-timer');
+            startCountdown(countdownTime, display);
+        };
+    </script>
+</body>
+</html>
