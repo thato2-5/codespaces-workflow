@@ -5,6 +5,9 @@ from wtforms.validators import DataRequired
 
 app = Flask(__name__)
 
+# Add app configurations here
+app.config['SECRET_KEY'] = 'testingKey'
+
 class ContactForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired()])
@@ -22,6 +25,10 @@ def about():
 @app.route('/services')
 def services():
     return render_template('services.html')
+
+@app.route('/pricing')
+def pricing():
+    return render_template('pricing.html')
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
